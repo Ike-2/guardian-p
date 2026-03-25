@@ -83,22 +83,58 @@ curl -s -X POST http://127.0.0.1:8000/analyse \
     "temperature_c": 42,
     "capacity_kw": 1500
   }'
-```
-
-Interactive API docs at `http://127.0.0.1:8000/docs`
 
 ---
 
-## API at a Glance
+## API Reference
 
-| Endpoint | What it does |
-|---|---|
-| `POST /analyse` | Check a single inverter reading |
-| `POST /analyse/batch` | Check up to 1,000 readings at once |
-| `POST /feedback` | Flag a false positive — triggers self-learning |
-| `GET /learning/state` | See how confidence scores have evolved |
-| `GET /inverters/{id}/stats` | Per-inverter anomaly history |
-| `GET /alerts` | Query all alerts with filters |
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/analyse` | Analyse a single inverter data point |
+| `POST` | `/analyse/batch` | Analyse up to 1,000 data points in one call |
+| `POST` | `/feedback` | Submit operator feedback — triggers self-learning |
+| `GET` | `/learning/state` | View current confidence score adjustments |
+| `GET` | `/inverters/{id}/stats` | Per-inverter anomaly statistics |
+| `GET` | `/alerts` | Query stored alerts with filters |
+| `POST` | `/diagnose` | Read-only diagnosis (no side effects) |
+
+Interactive docs at `http://127.0.0.1:8000/docs` (Swagger UI) and `/redoc`.
+
+---
+
+## Project Structure
+
+```
+guardian_p/
+├── api/
+│   └── main.py                 # FastAPI app — all HTTP endpoints
+├── core/
+│   ├── physics_engine.py       # 8 physics constraint rules (PV-001 … PV-005)
+│   ├── reasoning_engine.py     # Claude AI reasoning + rule-based fallback
+│   └── feedback_loop.py        # Self-learning — persists confidence adjustments
+├── data/
+│   └── load_archive.py         # CSV batch ingestion (136k+ rows)
+├── tests/
+│   ├── test_physics_engine.py  # 13 unit tests
+│   ├── test_reasoning_engine.py# 23 unit tests
+│   └── test_load_archive.py    # 41 unit tests
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+---
+
+## Requirements
+
+```
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+pydantic==2.7.1
+anthropic==0.28.0       # optional — only needed for Claude AI reasoning
+```
+
+Python 3.11+
 
 ---
 
