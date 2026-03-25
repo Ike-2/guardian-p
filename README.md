@@ -1,25 +1,24 @@
 # Guardian P
 
-**Solar PV Anomaly Detection System**
+> **The AI-powered quality gate for solar energy data — catching faults before they cost you.**
 
-Guardian P monitors solar inverter output in real time. It combines a physics-constraint engine with an optional Claude AI reasoning layer to detect, classify, and explain anomalies before bad data reaches downstream models.
+Solar farms lose millions in revenue every year not because panels break, but because bad data goes undetected. Faulty sensors, inverter glitches, and shading events silently corrupt the datasets that operators and AI models rely on to make decisions.
 
-## Core Features
+**Guardian P fixes that.**
 
-- **Physics Constraint Engine** — 8 rule-based checks (PV-000 through PV-005) covering sensor faults, MPPT failures, over/under-voltage, shading, thermal limits, and dropouts
-- **AI Reasoning Layer** — Optional Claude-powered natural-language explanations with automatic rule-based fallback
-- **Self-Learning Feedback Loop** — Operator feedback adjusts confidence scores over time, persisted across restarts
-- **Batch Processing** — Analyse up to 1,000 data points per request, or ingest full archive CSVs (136k+ rows in ~3s)
-- **REST API** — FastAPI with auto-generated Swagger/ReDoc docs, request tracing, and per-inverter statistics
 
-## Test Results
+## What Guardian P Does
 
-| Suite | Tests | Status |
-|---|---|---|
-| `test_physics_engine.py` | 13 | Passed |
-| `test_reasoning_engine.py` | 23 | Passed |
-| `test_load_archive.py` | 41 | Passed |
-| **Total** | **77** | **All Passed** |
+Guardian P sits between your inverters and your data pipeline. Every reading passes through two layers of intelligence before it reaches your models:
+
+**Layer 1 — Physics Engine**
+Eight physics-based rules check every data point against what's physically possible given real-world conditions (irradiance, voltage, temperature). No ML required. No black box. Just hard science.
+
+**Layer 2 — AI Reasoning (powered by Claude)**
+When an anomaly is detected, Claude explains *why* in plain English, ranks urgency, and recommends specific actions — so operators know exactly what to do next.
+
+**Layer 3 — Self-Learning**
+Operators mark false positives. The system learns. Confidence scores adjust automatically and persist across restarts. The longer it runs, the smarter it gets.
 
 ## Quick Start
 
