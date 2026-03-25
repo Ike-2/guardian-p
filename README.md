@@ -20,6 +20,15 @@ When an anomaly is detected, Claude explains *why* in plain English, ranks urgen
 **Layer 3 — Self-Learning**
 Operators mark false positives. The system learns. Confidence scores adjust automatically and persist across restarts. The longer it runs, the smarter it gets.
 
+## The Problem
+
+The global solar market is projected to exceed **$500B by 2030**. But as fleets scale, data quality becomes the silent killer:
+
+- A single miscalibrated sensor can skew an entire site's performance model
+- Operators manually reviewing thousands of data points per day miss anomalies
+- Downstream AI models trained on dirty data make bad predictions — and nobody knows why
+
+
 ## Quick Start
 
 ```bash
